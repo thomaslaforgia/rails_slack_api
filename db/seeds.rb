@@ -54,7 +54,8 @@ def seed_conversations
   end
 end
 
-def seed
+
+def seed_all
   User.destroy_all
   Channel.destroy_all
   Conversation.destroy_all
@@ -63,4 +64,19 @@ def seed
   seed_conversations
 end
 
-seed
+def prompt
+  prompt = TTY::Prompt.new
+  choices = %w(Users Channels Conversations)
+  selections = prompt.multi_select("Select tables to populate:", choices)
+  overwrite = prompt.yes?("Overwrite table contents?")
+  process_selections(selections, overwrite)
+end
+
+def process_selections(selections, overwrite)
+  selections.each do |s|
+    s[0..-2].constantize.destroy_all if overwrite
+    send("seed_" + s.downcase)
+  end
+end
+
+prompt

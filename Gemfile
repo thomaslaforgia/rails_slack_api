@@ -59,3 +59,6 @@ gem 'progress_bar'
 
 # Token storage
 gem 'dotenv'
+
+# Seeds CLI
+gem 'tty-prompt'
