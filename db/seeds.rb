@@ -15,11 +15,11 @@ def seed_users
 end
 
 def seed_channels
-  puts 'Processing channels...'
+  print "\rProcessing channels..."
   @client.channels_list.channels.each_with_progress do |channel|
     c = channel.to_hash
     c['uuid'] = c.delete('id')
-    print "\r#{c['name']}"
+    print "#{c['name']}"
     Channel.create!(c)
   end
 end
@@ -28,8 +28,10 @@ def seed_conversations
   puts 'Processing conversations...'
   channels = Channel.all.map {|c| c.uuid}
   channels.each_with_progress do |channel|
+    print "\r#{channel}"
     begin
       conversations = @client.conversations_history(channel: channel)
+    ## TODO: Specify rate limited exception for rescue
     rescue Exception => err
       puts err
       i = 121
@@ -39,7 +41,6 @@ def seed_conversations
       end
       retry
     end
-
     begin
       conversations.messages.each do |message|
         message_hash = message.to_hash
