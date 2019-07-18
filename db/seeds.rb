@@ -19,7 +19,7 @@ def seed_channels
   @client.channels_list.channels.each_with_progress do |channel|
     c = channel.to_hash
     c['uuid'] = c.delete('id')
-    print "#{c['name']}"
+    print "\r#{c['name']}"
     Channel.create!(c)
   end
 end
@@ -69,7 +69,7 @@ def prompt
   prompt = TTY::Prompt.new
   choices = %w(Users Channels Conversations)
   selections = prompt.multi_select("Select tables to populate:", choices)
-  overwrite = prompt.yes?("Overwrite table contents?")
+  overwrite = prompt.yes?("Overwrite previous table contents?")
   process_selections(selections, overwrite)
 end
 
