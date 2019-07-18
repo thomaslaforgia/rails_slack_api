@@ -2,9 +2,9 @@
 Slack API tools for Rails backend
 
 ### Setup
-- [Generate a token](https://api.slack.com/custom-integrations/legacy-tokens)
+[Generate a token](https://api.slack.com/custom-integrations/legacy-tokens)
 
-- Run:
+Run:
 
 ```
 bundle install
