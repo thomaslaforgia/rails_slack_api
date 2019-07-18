@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: rails_slack_api_development
+  username: postgres
+  password:
+
+test:
+  <<: *default
+  database: rails_slack_api_test
+  username: postgres
+  password:
+
+production:
+  <<: *default
+  database: rails_slack_api_production
+  username: postgres
+  password:
